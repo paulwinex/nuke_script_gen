@@ -1,4 +1,4 @@
-import sys, os, shutil
+import sys, os
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(sys.executable), 'pythonextensions/site-packages')))
 pl_path = os.path.normpath(os.path.join(os.path.dirname(sys.executable), 'qtplugins/platforms'))
 os.environ.setdefault('QT_QPA_PLATFORM_PLUGIN_PATH', pl_path)
@@ -166,15 +166,12 @@ Output Path: {}'''.format(refscript, len(mov_files), len(dpx_shots), outdir)
         self.output_tb.insertPlainText('%s\n' % msg)
         self.output_tb.moveCursor(QTextCursor.End)
 
+
 if __name__ == '__main__':
     app = QApplication.instance()
     if not app:
         app = QApplication([])
     w = GeneratorUi()
     w.show()
-    w.reference_le.setText('D:/work_cg/gfx_nuke_remapper/generate/reference2.nk')
-    w.mov_le.setText('D:/work_cg/gfx_nuke_remapper/generate/premaster')
-    w.dpx_le.setText('D:/work_cg/gfx_nuke_remapper/generate/ish')
-    w.out_le.setText( 'D:/work_cg/gfx_nuke_remapper/generate/out')
 
     app.exec_()

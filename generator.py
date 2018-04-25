@@ -162,5 +162,4 @@ if __name__ == '__main__':
         sys.exit()
     refscript, movdir, dpxdir, outdir = args[1:]
 
-
     generate(refscript, movdir, dpxdir, outdir)
