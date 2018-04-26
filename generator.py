@@ -68,10 +68,6 @@ def link(source_path, target_path):
     return os.path.exists(target_path)
 
 
-def verb(*args):
-    print ' '.join(*args)
-
-
 def generate(refscript, movdir, dpxdir, outdir):
     devnull = open(os.devnull, 'wb')
     mov_files = glob.glob1(movdir, '*.mov')
@@ -154,12 +150,12 @@ def generate(refscript, movdir, dpxdir, outdir):
         sys.stdout = devnull
         nuke.scriptSaveAs(out_script, True)
         sys.stdout = _
-        
+
+
 if __name__ == '__main__':
     if len(args[1:]) < 4:
         print(args[1:])
         print('Error arguments')
         sys.exit()
     refscript, movdir, dpxdir, outdir = args[1:]
-
     generate(refscript, movdir, dpxdir, outdir)

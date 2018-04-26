@@ -2,9 +2,13 @@ import sys, os
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(sys.executable), 'pythonextensions/site-packages')))
 pl_path = os.path.normpath(os.path.join(os.path.dirname(sys.executable), 'qtplugins/platforms'))
 os.environ.setdefault('QT_QPA_PLATFORM_PLUGIN_PATH', pl_path)
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
-from PySide2.QtGui import *
+try:
+    from PySide2.QtWidgets import *
+    from PySide2.QtCore import *
+    from PySide2.QtGui import *
+except:
+    from PySide.QtCore import *
+    from PySide.QtGui import *
 
 
 class DropLineEdit(QLineEdit):
@@ -134,7 +138,8 @@ class GeneratorUi(QMainWindow):
 Mov Files: {}
 DPX Shots: {}
 Output Path: {}'''.format(refscript, len(mov_files), len(dpx_shots), outdir)
-        if QMessageBox.question(self, 'Generate Scripts', text) == QMessageBox.Yes:
+        res = QMessageBox.question(self, 'Generate Scripts', text, QMessageBox.Yes|QMessageBox.No)
+        if res == QMessageBox.Yes:
             cmd = '{} {} {} {} {} {}'.format(
                 sys.executable,
                 os.path.join(os.path.dirname(__file__), 'generator.py'),
@@ -173,5 +178,8 @@ if __name__ == '__main__':
         app = QApplication([])
     w = GeneratorUi()
     w.show()
-
+    w.reference_le.setText('/home/paul/Desktop/gfx_nuke_remapper/generate/reference2.nk')
+    w.mov_le.setText('/home/paul/Desktop/gfx_nuke_remapper/generate/premaster')
+    w.dpx_le.setText('/home/paul/Desktop/gfx_nuke_remapper/generate/ish')
+    w.out_le.setText('/home/paul/Desktop/gfx_nuke_remapper/generate/out')
     app.exec_()
